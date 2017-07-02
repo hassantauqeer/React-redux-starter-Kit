@@ -27,7 +27,13 @@ export default {
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin()
   ],
+  resolve: {
+    extensions: ['', '.js', 'index.js','.json', 'latest.json']
+  },
   module: {
+    preLoaders: [
+      { test: /\.json$/, exclude: /node_modules/, loader: 'json'}
+    ],
     loaders: [
       {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},
       {test: /(\.css)$/, loader: ExtractTextPlugin.extract("css?sourceMap")},

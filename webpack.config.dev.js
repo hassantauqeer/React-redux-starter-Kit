@@ -16,6 +16,9 @@ export default {
     publicPath: '/',
     filename: 'bundle.js'
   },
+  resolve: {
+    extensions: ['', '.json', '.jsx', '.js']
+  },
   devServer: {
     contentBase: './src'
   },
@@ -24,7 +27,11 @@ export default {
     new webpack.NoErrorsPlugin()
   ],
   module: {
+    Loaders: [
+      { test: /\.json$/, exclude: /node_modules/, loader: 'json'}
+    ],
     loaders: [
+      {include: /\.json$/, loaders: ["json-loader"]},
       {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},
       {test: /(\.css)$/, loaders: ['style', 'css']},
       {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file"},
